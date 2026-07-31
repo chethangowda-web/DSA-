@@ -1,17 +1,19 @@
-class TrieNode {
+class TrieNode{
     TrieNode[] children;
     boolean isEnd;
 
-    public TrieNode() {
+    public TrieNode(){
         children = new TrieNode[26];
-        isEnd = false; 
+        isEnd = false;
     }
 }
-    class Trie{
-         TrieNode root;
-            public Trie(){
-                root  = new TrieNode();
-            }
+
+class Trie {
+    private TrieNode root;
+    public Trie() {
+        root = new TrieNode();
+    }
+    
     public void insert(String word) {
      TrieNode node = root;
      for(char c : word.toCharArray()){
@@ -23,31 +25,34 @@ class TrieNode {
      }   
      node.isEnd = true;
     }
-    public boolean search(String word) {
-     TrieNode node = root;
-     for(char c : word.toCharArray()) {
-        int i = c - 'a';
 
-        if(node.children[i] == null){
-            return false;
-        }
-        node = node.children[i];
-     } 
-     return node.isEnd;
-    }
-    public boolean startsWith(String prefix) {
+    public boolean search(String word) {
         TrieNode node = root;
-        for(char c : prefix.toCharArray()){
+
+        for(char c : word.toCharArray()){
             int i = c - 'a';
             if(node.children[i] == null){
                 return false;
             }
             node = node.children[i];
+        }        
+        return node.isEnd;
+    }
+    
+    public boolean startsWith(String prefix) {
+        TrieNode node = root;
+
+        for(char c : prefix.toCharArray()){
+            int i = c - 'a';
+
+            if(node.children[i] == null){
+                return false;
+            }
+            node = node.children[i];
         }
-        return true;   
+        return true;
     }
 }
-
 
 /**
  * Your Trie object will be instantiated and called as such:
