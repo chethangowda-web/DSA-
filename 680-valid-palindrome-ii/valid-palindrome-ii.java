@@ -9,9 +9,10 @@ class Solution {
             left++;
             right--;
         }
-        return true;
-    }
 
+        return true;
+        
+    }
     private boolean isPalindrome(String s , int left , int right){
         while(left < right){
             if(s.charAt(left) != s.charAt(right)){
