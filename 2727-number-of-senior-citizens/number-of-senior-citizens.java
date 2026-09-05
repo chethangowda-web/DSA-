@@ -1,12 +1,13 @@
 class Solution {
     public int countSeniors(String[] details) {
-        int count = 0;
-        for(int i = 0; i < details.length; i++) {
-            int age = (details[i].charAt(11) - '0') * 10  + (details[i].charAt(12) - '0');
-            if(age > 60) {
-                count++;
+        int c = 0;
+        for (int i = 0; i < details.length; i++) {
+            // Extract indices 11 and 12 as a string and convert to integer
+            int age = Integer.parseInt(details[i].substring(11, 13));
+            if (age > 60) {
+                c++;
             }
         }
-        return count;
+        return c;
     }
 }
