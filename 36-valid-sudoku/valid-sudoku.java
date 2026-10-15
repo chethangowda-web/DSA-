@@ -1,20 +1,25 @@
-public class Solution {
+class Solution {
     public boolean isValidSudoku(char[][] board) {
-        Map<Integer, Set<Character>> cols = new HashMap<>();
-        Map<Integer, Set<Character>> rows = new HashMap<>();
-        Map<String, Set<Character>> squares = new HashMap<>();
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                if (board[r][c] == '.') continue;
-                String squareKey = (r / 3) + "," + (c / 3);
-                if (rows.computeIfAbsent(r, k -> new HashSet<>()).contains(board[r][c]) ||
-                    cols.computeIfAbsent(c, k -> new HashSet<>()).contains(board[r][c]) ||
-                    squares.computeIfAbsent(squareKey, k -> new HashSet<>()).contains(board[r][c])) {
+        boolean[][] row = new boolean[9][9];
+        boolean[][] col = new boolean[9][9];
+        boolean[][] boxes = new boolean[9][9];
+
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] == '.'){
+                    continue;
+                }
+
+                int num = board[i][j] - '1';
+                int boxIndex = (i / 3) * 3 + (j / 3);
+
+                if(row[i][num] || col[j][num] || boxes[boxIndex][num]){
                     return false;
                 }
-                rows.get(r).add(board[r][c]);
-                cols.get(c).add(board[r][c]);
-                squares.get(squareKey).add(board[r][c]);
+
+                row[i][num] = true;
+                col[j][num] = true;
+                boxes[boxIndex][num] = true;
             }
         }
         return true;
