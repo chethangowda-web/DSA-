@@ -1,58 +1,55 @@
 class TrieNode{
-    TrieNode[] children;
-    boolean isEnd;
-
-    public TrieNode(){
-        children = new TrieNode[26];
-        isEnd = false;
-    }
+    TrieNode[] children = new TrieNode[26];
+    boolean isEnd = false;
 }
-
 class Trie {
-    private TrieNode root;
+        TrieNode root;
     public Trie() {
         root = new TrieNode();
     }
     
     public void insert(String word) {
-     TrieNode node = root;
-     for(char c : word.toCharArray()){
-        int i = c - 'a';
-        if(node.children[i] == null){
-            node.children[i] = new TrieNode();
-        }
-        node = node.children[i];
-     }   
-     node.isEnd = true;
-    }
-
-    public boolean search(String word) {
-        TrieNode node = root;
-
-        for(char c : word.toCharArray()){
-            int i = c - 'a';
-            if(node.children[i] == null){
-                return false;
+        TrieNode curr = root;
+        for(int i = 0; i < word.length(); i++){
+            int index = word.charAt(i) - 'a';
+            if(curr.children[index] == null){
+                curr.children[index] = new TrieNode();
             }
-            node = node.children[i];
-        }        
-        return node.isEnd;
+
+            curr = curr.children[index];
+        }
+        curr.isEnd = true;
     }
     
-    public boolean startsWith(String prefix) {
-        TrieNode node = root;
+    public boolean search(String word) {
+        TrieNode curr = root;
+        for(int i = 0; i < word.length(); i++){
+            int index = word.charAt(i) - 'a';
 
-        for(char c : prefix.toCharArray()){
-            int i = c - 'a';
-
-            if(node.children[i] == null){
+            if(curr.children[index] == null){
                 return false;
             }
-            node = node.children[i];
+            curr = curr.children[index];
+        }    
+
+        return curr.isEnd;
+        
         }
+    
+    public boolean startsWith(String prefix) {
+         TrieNode curr = root;
+        for(int i = 0; i < prefix.length(); i++){
+            int index = prefix.charAt(i) - 'a';
+            if(curr.children[index] == null){
+                return false;
+            }
+            curr = curr.children[index];
+        }    
+
         return true;
     }
 }
+
 
 /**
  * Your Trie object will be instantiated and called as such:
