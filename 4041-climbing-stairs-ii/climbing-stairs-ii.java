@@ -1,20 +1,20 @@
 class Solution {
     public int climbStairs(int n, int[] costs) {
-        int[] dp = new int[n + 1];
-        Arrays.fill(dp, -1);
-        return solve(n, costs, dp);
-    }
-    private int solve(int i , int[]costs , int []dp){
-        if(i==0) return 0;
-        if(dp[i] != -1) return dp[i];
-        int minCost = Integer.MAX_VALUE;
-        for(int j = 1; j <= 3; j++){
-            if(i - j >= 0){
-            int cost = solve(i - j , costs , dp) + costs[i - 1] + j * j;
-            minCost = Math.min(minCost , cost);
+      int[] dp = new int[n + 1];
+      dp[0] = 0;
+      for(int i = 1; i <= n; i++){
+         dp[i] = Integer.MAX_VALUE;
+      for(int j = 1; j <= 3; j++){
+        if(i - j >= 0){
+              int cost = dp[i - j]
+                             + costs[i - 1]
+                             + j * j;
+
+                    dp[i] = Math.min(dp[i], cost);
         }
+      } 
+      } 
+      return dp[n];
     }
-     return dp[i] = minCost;
-    }
-   
+    
 }
